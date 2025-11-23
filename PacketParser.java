@@ -61,12 +61,19 @@ public class PacketParser {
         p.transport = "TCP";
         p.sport = u16(pkt, off);
         p.dport = u16(pkt, off+2);
+
+        int port = (p.sport == 80 || p.sport == 443 || p.sport == 53) ? p.sport : p.dport;
+        p.application = appProtoName(port);
     }
+
 
     private void parseUDP(byte[] pkt, int off, ParsedPacket p) {
         p.transport = "UDP";
         p.sport = u16(pkt, off);
         p.dport = u16(pkt, off+2);
+
+        int port = (p.sport == 53) ? p.sport : p.dport; 
+        p.application = appProtoName(port);
     }
 
     private int u16(byte[] b, int off) {
@@ -96,6 +103,17 @@ public class PacketParser {
         }
     }
 
+    private String ProtocoloName(int port) {
+        switch (port) {
+            case 80: return "HTTP";
+            case 443: return "HTTPS";
+            case 53: return "DNS";
+            case 21: return "FTP_Control";
+            case 23: return "Telnet";
+            default: return "desconhecido";
+        }
+    }
+
     public static class ParsedPacket {
         public String timestamp;
         public String src, dst;
@@ -103,5 +121,6 @@ public class PacketParser {
         public String transport;
         public int sport=-1, dport=-1;
         public int totalBytes;
+        public String application;
     }
 }

@@ -34,22 +34,45 @@ public class Monitor {
             RawPacketReader.PacketData pd = reader.readPacket();
             if (pd == null)
                 continue;
-
+            
             counters.put("total", counters.get("total") + 1);
 
             PacketParser.ParsedPacket p = parser.parse(pd.data);
-            if (p == null)
+            if (p == null) {
                 continue;
+            }
 
-            if (p.protocol.equals("TCP"))
-                counters.put("tcp", counters.get("tcp") + 1);
-            else if (p.protocol.equals("UDP"))
-                counters.put("udp", counters.get("udp") + 1);
-            else if (p.protocol.equals("ICMP") || p.protocol.equals("ICMPv6"))
-                counters.put("icmp", counters.get("icmp") + 1);
+            // 1. Contadores da Camada Internet (IPv4/IPv6)
+            if (p.protocol.equals("ICMP") || p.protocol.equals("TCP") || p.protocol.equals("UDP"))
+                counters.put("ipv4", counters.get("ipv4") + 1);
+            else if (p.protocol.equals("ICMPv6") || p.protocol.equals("TCP") || p.protocol.equals("UDP"))
+                counters.put("ipv6", counters.get("ipv6") + 1);
 
+            // 2. Contadores da Camada Transporte
+            if (p.transport != null) {
+                if (p.transport.equals("TCP"))
+                    counters.put("tcp", counters.get("tcp") + 1);
+                else if (p.transport.equals("UDP"))
+                    counters.put("udp", counters.get("udp") + 1);
+                else if (p.transport.equals("ICMP") || p.transport.equals("ICMPv6"))
+                    counters.put("icmp", counters.get("icmp") + 1);
+                else
+                    counters.put("outros", counters.get("outros") + 1);
+            } else {
+                // Protocolo da camada Internet que não é TCP, UDP ou ICMP
+                 counters.put("outros", counters.get("outros") + 1);
+            }
+
+
+            // 3. Log de Camada Internet e Transporte
             csv.logInternet(p);
             csv.logTransporte(p);
+
+            // 4. Log de Camada de Aplicação 
+            if (p.application != null && !p.application.equals("desconhecido")) {
+                String info = String.format("%s:%d -> %s:%d", p.src, p.sport, p.dst, p.dport);
+                csv.logAplicacao(p.timestamp, p.application, info);
+            }
         }
     }
 }
