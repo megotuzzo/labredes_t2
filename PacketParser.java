@@ -63,7 +63,7 @@ public class PacketParser {
         p.dport = u16(pkt, off+2);
 
         int port = (p.sport == 80 || p.sport == 443 || p.sport == 53) ? p.sport : p.dport;
-        p.application = appProtoName(port);
+        p.application = ProtocoloName(port);
     }
 
 
@@ -73,7 +73,7 @@ public class PacketParser {
         p.dport = u16(pkt, off+2);
 
         int port = (p.sport == 53) ? p.sport : p.dport; 
-        p.application = appProtoName(port);
+        p.application = ProtocoloName(port);
     }
 
     private int u16(byte[] b, int off) {
