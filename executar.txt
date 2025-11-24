@@ -1,0 +1,16 @@
+em um terminal: 
+sudo ./raw_socket
+em outro terminal:
+sudo java Monitor
+
+em um terceito terminal, executar os comandos:
+ICMP: 
+ping 8.8.8.8
+DNS/UDP: 
+dig google.com
+HTTP: 
+curl http://google.com
+NTP: 
+sudo ntpdate pool.ntp.org
+DHCP:
+dhclient

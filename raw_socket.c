@@ -22,9 +22,8 @@ int main() {
         exit(1);
     }
 
-    // identifica  a interface tun0
     memset(&ifr, 0, sizeof(ifr));
-    strncpy(ifr.ifr_name, "tun0", IFNAMSIZ - 1);
+    strncpy(ifr.ifr_name, "eth0", IFNAMSIZ - 1);
 
     if (ioctl(sockfd, SIOCGIFINDEX, &ifr) < 0) {
         perror("SIOCGIFINDEX");
