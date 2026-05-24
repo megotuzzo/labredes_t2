@@ -6,7 +6,6 @@ Este é um projeto focado no desenvolvimento de uma ferramenta para monitorament
 
 *Nota: A arquitetura baseada no mascaramento via "Traffic Tunnel" sugerida originalmente no escopo foi descartada desta implementação por não estar funcionando.*
 
-</div>
 
 ### 🕹️ Como Executar
 
@@ -53,7 +52,7 @@ Logs Segregados por Camada: A classe CsvLogger.java estrutura e divide o histór
 | :---: | :---: |
 | <img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="40" height="40"/> | <img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="40" height="40"/> |
 
-# Autoras:
+# 👥 Autoras:
 
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/142232479?v=4" width=115><br><sub>Luiza Hackenhaar Naziazeno</sub>](https://github.com/luizahackenhaarnaziazeno)|  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/141246773?v=4" width=115><br><sub>Maria Eduarda Gotuzzo Da Silva</sub>](https://github.com/megotuzzo)| 
 | :---: | :---: | 
